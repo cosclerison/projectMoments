@@ -1,4 +1,5 @@
 export interface Moments {
+  // Usando "?" no "id" mostra que e um valor opcional para está variável.
   id?: number;
   title: string;
   description: string;

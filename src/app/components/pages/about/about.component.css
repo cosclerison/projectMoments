@@ -6,7 +6,12 @@
   padding: 2em;
 }
 
-h2, p {
+h2 {
+  margin-bottom: 1em;
+  color: #dec129;
+}
+
+p {
   margin-bottom: 1em;
 }
 

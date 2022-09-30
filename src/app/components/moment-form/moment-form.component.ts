@@ -1,7 +1,6 @@
+import { Moments } from 'src/app/Moments';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-
-import { Moments } from './../../Moments';
 
 @Component({
   selector: 'app-moment-form',
@@ -11,6 +10,7 @@ import { Moments } from './../../Moments';
 export class MomentFormComponent implements OnInit {
   @Output() onSubmit = new EventEmitter<Moments>()
   @Input() btnText!: string;
+  @Input() momentData: Moments | null = null;
 
   momentForm!: FormGroup;
 

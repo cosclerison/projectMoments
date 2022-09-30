@@ -64,3 +64,15 @@ input[type="submit"]:hover {
   border-left: 3px solid #dc3545;
   padding-left: 0.4em;
 }
+
+/* BUTTONS */
+.edit-btn,
+.remove-btn {
+  border: 1px solid #efefef;
+  padding: 0.4em 1em;
+  font-size: 1em;
+  margin: 0 0.5em;
+  cursor: pointer;
+  background-color: #fff;
+  transition: 0.4s;
+}

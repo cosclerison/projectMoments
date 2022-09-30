@@ -12,14 +12,13 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  // para buscar todos registros do banco
-  allMoments: Moments[] =[]
-  // para buscar momentos na pesquisa
-  moments: Moments[] = []
-  // Para buscar dados da api
-  baseApiUrl = environment.baseApiUrl
+  allMoments: Moments[] =[] // para buscar todos registros do banco
+  moments: Moments[] = [] // para buscar momentos na pesquisa
+  
+  baseApiUrl = environment.baseApiUrl // Para buscar dados da api
 
-  // todo  search
+  faSearch = faSearch; // ativa o icon de lupa para pesquisa
+  searchTerm: string = ''; // Inicia a variável vazia
 
   constructor(
     private momentService: MomentService,
@@ -44,4 +43,13 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  search(e: Event): void { //Evento vindo do input
+
+    const target = e.target as HTMLInputElement //pega o evento do HTML input
+    const value = target.value // pega o valor do evento inserido no "target"
+
+    this.moments = this.allMoments.filter((moment) => {
+      return moment.title.toLowerCase().includes(value);// a busca vai ser feita no html pelo campo title
+    });
+  }
 }

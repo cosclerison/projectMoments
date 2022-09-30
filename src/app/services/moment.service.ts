@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 export class MomentService {
   private baseApiUrl = environment.baseApiUrl
   // direcionando com a rota do serviço deste service que é o moment
-  private apiUrl = `${this.baseApiUrl}/api/moments`
+  private apiUrl = `${this.baseApiUrl}api/moments`
 
   constructor(
     private http: HttpClient
@@ -19,6 +19,15 @@ export class MomentService {
 
   getMoments(): Observable<Response<Moments[]>> {
     return this.http.get<Response<Moments[]>>(this.apiUrl);
+  }  
+  
+  getMoment(id: number): Observable<Response<Moments>> {
+    //  Primeiro método para acessar a url do id
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.get<Response<Moments>>(url);
+
+    //  Segundo método para acessar a url do id
+    // return this.http.get<Response<Moments>>(`${this.apiUrl}/${id}`);
   }
 
   createMoment(formData: FormData): Observable<FormData> {

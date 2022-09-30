@@ -15,6 +15,14 @@ export class MessagesService {
       this.clear()
     }, 3000)
   }
+  
+  delete(message: string) {
+    this.message = message = 'Deletado';
+
+    setTimeout(() => {
+      this.clear()
+    }, 3000)
+  }
 
   clear() {
     this.message = '';

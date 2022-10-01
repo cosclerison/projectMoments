@@ -1,11 +1,21 @@
 import { MessagesService } from 'src/app/services/messages.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { 
+  FormControlDirective,
+  FormControl,
+  FormGroup,
+  Validator,
+  Validators,
+  FormGroupDirective,
+ } from '@angular/forms';
 
 import { faTimes, faEdit, faE } from '@fortawesome/free-solid-svg-icons';
+import { CommentService } from 'src/app/services/comment.service';
 import { MomentService } from 'src/app/services/moment.service';
 import { environment } from 'src/environments/environment';
 import { Moments } from 'src/app/Moments';
+import { Comment } from 'src/app/Comment';
 
 
 @Component({
@@ -22,8 +32,11 @@ export class MomentComponent implements OnInit {
   faTimes = faTimes;
   faEdit = faEdit;
 
+  commentForm!: FormGroup
+
   constructor(
     private messagesService: MessagesService,
+    private commentService: CommentService,
     private momentService: MomentService,
     private route: ActivatedRoute,
     private router: Router,
@@ -35,6 +48,19 @@ export class MomentComponent implements OnInit {
       .getMoment(id)
       .subscribe(item => 
         this.moment = item.data);
+
+    this.commentForm = new FormGroup({
+      text: new FormControl("", [Validators.required]),
+      username: new FormControl("", [Validators.required]),
+    });
+  }
+
+  get text() {
+    return this.commentForm.get('text')!;
+  }
+  
+  get username() {
+    return this.commentForm.get('username')!;
   }
 
   // remove os dados do banco, o mesmo aguarda o resultado para dar continuidade
@@ -44,5 +70,29 @@ export class MomentComponent implements OnInit {
     this.messagesService.delete('');
 
     this.router.navigate(['/']); 
+  }
+
+  async onSubmit(formDirective: FormGroupDirective) {
+    
+    if(this.commentForm.invalid){
+      return
+    }
+
+    const data: Comment = this.commentForm.value
+
+    data.momentId = Number(this.moment!.id)
+
+    await this.commentService
+      .createComment(data)
+      .subscribe((comment) => this.moment!.comments!.push(comment.data));
+
+    this.messagesService.add('Comentário adicionado!');
+
+    // Reset the form
+    this.commentForm.reset();
+    formDirective.resetForm();
+
+    // this.router.navigate(['/'])
+
   }
 }

@@ -10,7 +10,7 @@ import {
   FormGroupDirective,
  } from '@angular/forms';
 
-import { faTimes, faEdit, faE } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faEdit, faCancel } from '@fortawesome/free-solid-svg-icons';
 import { CommentService } from 'src/app/services/comment.service';
 import { MomentService } from 'src/app/services/moment.service';
 import { environment } from 'src/environments/environment';
@@ -31,6 +31,7 @@ export class MomentComponent implements OnInit {
   // Acessando os icons
   faTimes = faTimes;
   faEdit = faEdit;
+  faCancel = faCancel;
 
   commentForm!: FormGroup
 
@@ -63,6 +64,10 @@ export class MomentComponent implements OnInit {
     return this.commentForm.get('username')!;
   }
 
+  cancel() {
+    this.router.navigate(['/']);
+  }
+
   // remove os dados do banco, o mesmo aguarda o resultado para dar continuidade
   async removeHandler(id: number) {
     await this.momentService.removeMoment(id).subscribe();
@@ -91,8 +96,6 @@ export class MomentComponent implements OnInit {
     // Reset the form
     this.commentForm.reset();
     formDirective.resetForm();
-
     // this.router.navigate(['/'])
-
   }
 }

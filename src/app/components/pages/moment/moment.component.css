@@ -78,6 +78,19 @@ a fa-icon {
   background-color: #DC3545;
 }
 
+.cancel-btn,
+.cancel-btn path {
+  border-radius: 6px;
+  border-color: #dec129;
+  color: #dec129;
+}
+
+.cancel-btn:hover,
+.cancel-btn :hover path {
+  color: #fff;
+  background-color: #dec129;
+}
+
 .comment-container {
   text-align: left;
   border-bottom: 1px solid #efefef;

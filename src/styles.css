@@ -67,6 +67,7 @@ input[type="submit"]:hover {
 
 /* BUTTONS */
 .edit-btn,
+.cancel-btn,
 .remove-btn {
   border: 1px solid #efefef;
   padding: 0.4em 1em;
